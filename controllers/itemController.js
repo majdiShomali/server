@@ -48,8 +48,8 @@ const allCartItems = (req, res) => {
 
 const addItem =  async (req, res) => {
   const image = req.file.path
-     const { Name, description , price,ProviderId,totalQuantity } = req.body;
-      const item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity });
+     const { Name, description , price,ProviderId,totalQuantity,salePrice } = req.body;
+      const item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity,salePrice:salePrice });
       const newItem = await item.save();
       res.json(newItem);
 };
@@ -75,11 +75,11 @@ const favoriteItems = (req, res) => {
 const updateProductRate = async (req, res) => {
   const CardId  = req.params.id;
   const updatedItemData = req.body;
-  console.log(CardId,updatedItemData);
   const Product = await Item.findByIdAndUpdate(CardId, updatedItemData, { new: true });
   const updatedProduct= await Product.save();
   res.json(updatedProduct);
 };
+
 const updateProductQuantity = async (req, res) => {
   const CardId  = req.params.id;
   const updatedItemData = req.body;

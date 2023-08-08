@@ -36,7 +36,11 @@ const itemSchema = new Schema({
         required: false,
       },
     price:{
-        type : String,
+        type : Number,
+        required : true,
+    },
+    salePrice:{
+        type : Number,
         required : true,
     },
     quantity:{
