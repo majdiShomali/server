@@ -10,6 +10,18 @@ const allItems = (req, res) => {
       errorHandler(error, req, res);
     });
 };
+
+const ProviderItems = (req, res) => {
+    const id = req.params.id;
+    Item.find({ProviderId:id})
+    .then((data) => { 
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
+
 const OneItem = (req, res) => {
   const id = req.params.id;
   Item.findById(id) 
@@ -36,8 +48,8 @@ const allCartItems = (req, res) => {
 
 const addItem =  async (req, res) => {
   const image = req.file.path
-     const { Name, description , price } = req.body;
-      const item = new Item({ Name: Name, description: description,price:price,image:image });
+     const { Name, description , price,ProviderId,totalQuantity } = req.body;
+      const item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity });
       const newItem = await item.save();
       res.json(newItem);
 };
@@ -54,11 +66,33 @@ const favoriteItems = (req, res) => {
   Item.find({ UsersIdFavorite: { $in: [userId] } })
     .then((data) => {
       res.json(data);
-
     })
     .catch((error) => {
       errorHandler(error, req, res);
     });
+};
+
+const updateProductRate = async (req, res) => {
+  const CardId  = req.params.id;
+  const updatedItemData = req.body;
+  console.log(CardId,updatedItemData);
+  const Product = await Item.findByIdAndUpdate(CardId, updatedItemData, { new: true });
+  const updatedProduct= await Product.save();
+  res.json(updatedProduct);
+};
+const updateProductQuantity = async (req, res) => {
+  const CardId  = req.params.id;
+  const updatedItemData = req.body;
+
+  const ProductOr = await Item.findOne({_id:CardId});
+
+  const NewUpdateData ={
+    totalQuantity:ProductOr.totalQuantity-updatedItemData.quantity
+  }
+
+  const Product = await Item.findByIdAndUpdate(CardId, NewUpdateData, { new: true });
+  const updatedProduct= await Product.save();
+  res.json(updatedProduct);
 };
 
 module.exports = {
@@ -68,5 +102,8 @@ module.exports = {
   favoriteItems,
   allCartItems,
   OneItem,
+  updateProductRate,
+  ProviderItems,
+  updateProductQuantity,
 }; 
 

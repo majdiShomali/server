@@ -6,6 +6,10 @@ const itemSchema = new Schema({
         type : String,
         required : true
     },
+    ProviderId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+      },
     description: {
         type : String,
         required : true
@@ -19,13 +23,18 @@ const itemSchema = new Schema({
         required : false
     },
     rate: {
-        type : Array,
-        required : false
-    },
-    totalRate: {
-        type : String,
-        required : false
-    },
+        type: Array,
+        required: false,
+      },
+      rating: {
+        type: String,
+        required: false,
+        default: "5",
+      },
+      UsersIdRate: {
+        type: Array,
+        required: false,
+      },
     price:{
         type : String,
         required : true,
@@ -34,6 +43,10 @@ const itemSchema = new Schema({
         type : Number,
         required : false,
         default : 1
+    },
+    totalQuantity:{
+        type : Number,
+        required : true,
     },
     },
      {timestamps : true}
