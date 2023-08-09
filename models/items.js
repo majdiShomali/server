@@ -14,9 +14,26 @@ const itemSchema = new Schema({
         type : String,
         required : true
     },
+    category: {
+        type : String,
+        required : true
+    },
+
+    colors: {
+        type : Array,
+        required : false
+    },
+    accessories: {
+        type : Object,
+        required : false
+    },
     image:{
         type : String,
         required : true,
+    },
+    size:{
+        type : Array,
+        required : false,
     },
     UsersIdFavorite: {
         type : Array,

@@ -46,13 +46,19 @@ const allCartItems = (req, res) => {
     });
 };
 
+
 const addItem =  async (req, res) => {
-  const image = req.file.path
-     const { Name, description , price,ProviderId,totalQuantity,salePrice } = req.body;
-      const item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity,salePrice:salePrice });
-      const newItem = await item.save();
-      res.json(newItem);
+        const image = req.file.path
+        const { Name, description , price,ProviderId,totalQuantity,salePrice,category,selectedColor,selectedSize,isColorChecked,isSizeChecked } = req.body;      
+        const NewColor= JSON.parse(isColorChecked)  ?  [{color:selectedColor,image:image}] :[]
+        const NewSize = JSON.parse(isSizeChecked)   ?  [{size:selectedSize,image:image}] : []
+        const accessories=[{color:selectedColor,size:selectedSize,image:image}]
+        const  item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity,salePrice:salePrice ,category:category ,accessories:accessories });     
+        const newItem = await item.save();
+        res.json(newItem);
 };
+
+
 
 const updateItemFav = async (req, res) => {
   const cardId = req.params.id;
@@ -95,6 +101,38 @@ const updateProductQuantity = async (req, res) => {
   res.json(updatedProduct);
 };
 
+const updateProductColor = async (req, res) => {
+  const CardId  = req.params.id;
+  const image = req.file.path
+  const {selectedColor,itemColors} = req.body;
+  const prevColors = JSON.parse(itemColors)
+  const NewColors ={colors:[...prevColors,{color:selectedColor,image:image}]}
+  const Product = await Item.findByIdAndUpdate(CardId, NewColors, { new: true });
+  const updatedProduct= await Product.save();
+  res.json(updatedProduct);
+};
+const updateProductSize = async (req, res) => {
+  const CardId  = req.params.id;
+  const image = req.file.path
+  const {selectedSize,itemSizes} = req.body;
+  const prevSizes = JSON.parse(itemSizes)
+  const NewSizes ={size:[...prevSizes,{size:selectedSize,image:image}]}
+  const Product = await Item.findByIdAndUpdate(CardId, NewSizes, { new: true });
+  const updatedProduct= await Product.save();
+  res.json(updatedProduct);
+};
+const updateProductAccessory = async (req, res) => {
+  const CardId  = req.params.id;
+  const image = req.file.path
+  const {selectedSize,selectedColor,itemAccessories} = req.body;
+  const prevAccessories = JSON.parse(itemAccessories)
+  const NewAccessories ={accessories:[...prevAccessories,{color:selectedColor,size:selectedSize,image:image}]}
+  console.log(NewAccessories)
+  const Product = await Item.findByIdAndUpdate(CardId, NewAccessories, { new: true });
+  const updatedProduct= await Product.save();
+  res.json(updatedProduct);
+};
+
 module.exports = {
   allItems,
   addItem,
@@ -105,5 +143,8 @@ module.exports = {
   updateProductRate,
   ProviderItems,
   updateProductQuantity,
+  updateProductColor,
+  updateProductSize,
+  updateProductAccessory
 }; 
 
