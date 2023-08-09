@@ -49,11 +49,12 @@ const allCartItems = (req, res) => {
 
 const addItem =  async (req, res) => {
         const image = req.file.path
-        const { Name, description , price,ProviderId,totalQuantity,salePrice,category,selectedColor,selectedSize,isColorChecked,isSizeChecked } = req.body;      
-        const NewColor= JSON.parse(isColorChecked)  ?  [{color:selectedColor,image:image}] :[]
+        const { Name, description , price,ProviderId,totalQuantity,salePrice,category,selectedColor,selectedSize,isColorChecked,isSizeChecked,selectedVapePuff,isVapePuffChecked } = req.body;      
+        const NewColors= JSON.parse(isColorChecked)  ?  [{color:selectedColor,image:image}] :[]
         const NewSize = JSON.parse(isSizeChecked)   ?  [{size:selectedSize,image:image}] : []
-        const accessories=[{color:selectedColor,size:selectedSize,image:image}]
-        const  item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity,salePrice:salePrice ,category:category ,accessories:accessories });     
+        const NewVapePuff = JSON.parse(isVapePuffChecked)   ?  [{vapePuff:selectedVapePuff,color:selectedColor,image:image}] : []
+        // const accessories=[{color:selectedColor,size:selectedSize,image:image}]
+        const  item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity,salePrice:salePrice ,category:category,colors:NewColors,size:NewSize,vapePuff:NewVapePuff });     
         const newItem = await item.save();
         res.json(newItem);
 };
@@ -121,6 +122,17 @@ const updateProductSize = async (req, res) => {
   const updatedProduct= await Product.save();
   res.json(updatedProduct);
 };
+const updateProductVapePuff = async (req, res) => {
+  const CardId  = req.params.id;
+  const image = req.file.path
+  const {selectedVapePuff,selectedVapePuffColor,itemVapePuff} = req.body;
+  const prevVapePuff = JSON.parse(itemVapePuff)
+  const NewVapePuff ={vapePuff:[...prevVapePuff,{vapePuff:selectedVapePuff,vapePuffColor:selectedVapePuffColor,image:image}]}
+  console.log(NewVapePuff);
+  const Product = await Item.findByIdAndUpdate(CardId, NewVapePuff, { new: true });
+  const updatedProduct= await Product.save();
+  res.json(updatedProduct);
+};
 const updateProductAccessory = async (req, res) => {
   const CardId  = req.params.id;
   const image = req.file.path
@@ -145,6 +157,7 @@ module.exports = {
   updateProductQuantity,
   updateProductColor,
   updateProductSize,
-  updateProductAccessory
+  updateProductAccessory,
+  updateProductVapePuff
 }; 
 

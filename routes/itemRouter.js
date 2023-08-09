@@ -16,6 +16,7 @@ router.put("/api/updateProductQuantity/:id", itemController.updateProductQuantit
 
 router.put("/api/updateProductColor/:id",upload.single("image"), itemController.updateProductColor);
 router.put("/api/updateProductSize/:id",upload.single("image"), itemController.updateProductSize);
+router.put("/api/updateProductVapePuff/:id",upload.single("image"), itemController.updateProductVapePuff);
 router.put("/api/updateProductAccessory/:id",upload.single("image"), itemController.updateProductAccessory);
 
 module.exports = router;

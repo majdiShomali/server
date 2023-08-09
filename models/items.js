@@ -23,6 +23,10 @@ const itemSchema = new Schema({
         type : Array,
         required : false
     },
+    vapePuff: {
+        type : Array,
+        required : false
+    },
     accessories: {
         type : Object,
         required : false
