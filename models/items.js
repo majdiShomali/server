@@ -10,34 +10,17 @@ const itemSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
       },
-    description: {
-        type : String,
-        required : true
-    },
     category: {
         type : String,
         required : true
-    },
-
-    colors: {
-        type : Array,
-        required : false
-    },
-    vapePuff: {
-        type : Array,
-        required : false
-    },
-    accessories: {
-        type : Object,
-        required : false
     },
     image:{
         type : String,
         required : true,
     },
-    size:{
-        type : Array,
-        required : false,
+    description: {
+        type : String,
+        required : true
     },
     UsersIdFavorite: {
         type : Array,
@@ -56,23 +39,8 @@ const itemSchema = new Schema({
         type: Array,
         required: false,
       },
-    price:{
-        type : Number,
-        required : true,
-    },
-    salePrice:{
-        type : Number,
-        required : true,
-    },
-    quantity:{
-        type : Number,
-        required : false,
-        default : 1
-    },
-    totalQuantity:{
-        type : Number,
-        required : true,
-    },
+
+ 
     },
      {timestamps : true}
     )

@@ -1,6 +1,6 @@
 // 1- calling the model
 const Item = require("../models/items");
-
+const RelatedItems =require("../models/relatedItems")
 const allItems = (req, res) => {
     Item.find()
     .then((data) => { 
@@ -35,57 +35,29 @@ const OneItem = (req, res) => {
       errorHandler(error, req, res);
     });
 };
-const allCartItems = (req, res) => {
-  const { Ids } = req.body;
-  Item.find({ _id: { $in: Ids } })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      errorHandler(error, req, res);
-    });
-};
+
 
 
 const addItem =  async (req, res) => {
         const image = req.file.path
-        const { Name, description , price,ProviderId,totalQuantity,salePrice,category,selectedColor,selectedSize,isColorChecked,isSizeChecked,selectedVapePuff,isVapePuffChecked } = req.body;      
-        const NewColors= JSON.parse(isColorChecked)  ?  [{color:selectedColor,image:image}] :[]
-        const NewSize = JSON.parse(isSizeChecked)   ?  [{size:selectedSize,image:image}] : []
-        const NewVapePuff = JSON.parse(isVapePuffChecked)   ?  [{vapePuff:selectedVapePuff,color:selectedColor,image:image}] : []
-        // const accessories=[{color:selectedColor,size:selectedSize,image:image}]
-        const  item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity,salePrice:salePrice ,category:category,colors:NewColors,size:NewSize,vapePuff:NewVapePuff });     
-        const newItem = await item.save();
+        const { Name, description ,ProviderId,category} = req.body;      
+        const  item = new Item({ Name: Name, description: description,
+        image:image,ProviderId:ProviderId ,category:category,    
+        });     
+         const newItem = await item.save();
         res.json(newItem);
+        // const NewColors= JSON.parse(isColorChecked)  ?  [{color:selectedColor,image:image}] :[]
+        // const NewSize = JSON.parse(isSizeChecked)   ?  [{size:selectedSize,image:image}] : []
+        // const NewVapePuff = JSON.parse(isVapePuffChecked)   ?  [{vapePuff:selectedVapePuff,color:selectedColor,image:image}] : []
+        // // const accessories=[{color:selectedColor,size:selectedSize,image:image}]
+        // const  item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity,salePrice:salePrice ,category:category,colors:NewColors,size:NewSize,vapePuff:NewVapePuff });     
+        // const newItem = await item.save();
+        // res.json(newItem);
 };
 
 
 
-const updateItemFav = async (req, res) => {
-  const cardId = req.params.id;
-  const { UsersIdFavorite } = req.body;
-  const game = await Item.findByIdAndUpdate(cardId, { UsersIdFavorite: UsersIdFavorite }, { new: true });
-  res.json(game);
-};
 
-const favoriteItems = (req, res) => { 
-  const userId = req.params.id;
-  Item.find({ UsersIdFavorite: { $in: [userId] } })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      errorHandler(error, req, res);
-    });
-};
-
-const updateProductRate = async (req, res) => {
-  const CardId  = req.params.id;
-  const updatedItemData = req.body;
-  const Product = await Item.findByIdAndUpdate(CardId, updatedItemData, { new: true });
-  const updatedProduct= await Product.save();
-  res.json(updatedProduct);
-};
 
 const updateProductQuantity = async (req, res) => {
   const CardId  = req.params.id;
@@ -148,11 +120,7 @@ const updateProductAccessory = async (req, res) => {
 module.exports = {
   allItems,
   addItem,
-  updateItemFav,
-  favoriteItems,
-  allCartItems,
   OneItem,
-  updateProductRate,
   ProviderItems,
   updateProductQuantity,
   updateProductColor,

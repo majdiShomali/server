@@ -10,7 +10,7 @@ const dbURI = process.env.MONGODB
 const errorHandler = require('./middleware/500')
 const Protected = require('./middleware/Protected')
 const forgetRouts = require('./routes/forgetRouter');
-
+const relatedItemsRouts = require('./routes/relatedItemRouter');
 const app = express();
 app.use(cors());
 
@@ -28,6 +28,7 @@ app.use(userRouts);
 app.use(GoogleLogInRouts);
 app.use(itemRouts);
 app.use(forgetRouts);
+app.use(relatedItemsRouts);
 app.use('*',notFoundHandler);
 app.use(errorHandler);
 app.use(Protected)
