@@ -2,41 +2,14 @@
 const RelatedItems = require("../models/relatedItems");
 
 const addRelatedItem =  async (req, res) => {
-    const image = req.file.path
-
-     const {  selectedColor, 
-    selectedVapePuff, 
-    selectedSize, 
-    category, 
-    itemId,  
-    Name,
-    price, 
-    salePrice, 
-    description, 
-    totalQuantity,
-    selectedChargeVape,
-    isColorChecked, 
-    isSizeChecked, 
-    isVapePuffChecked, } = req.body; 
-
-const date ={Name:Name,
-category:category,
-categoryId:itemId,
-description:description,
-color:selectedColor,
-image:image,
-totalQuantity:totalQuantity,
-price:JSON.parse(price),
-salePrice:JSON.parse(salePrice),
-size:selectedSize,
-chargeVape:selectedChargeVape,
-vapePuff:JSON.parse(selectedVapePuff),
-quantity:1,
-}
-
-      const  item = new RelatedItems(date);  
+      const image = req.file.path
+      const data =req.body
+      const Newdata={...data,image:image}
+      const  item = new RelatedItems(Newdata);  
       const newItem = await item.save();
-       res.json(newItem);
+      res.json(newItem);
+
+
 
     // const NewColors= JSON.parse(isColorChecked)  ?  [{color:selectedColor,image:image}] :[]
     // const NewSize = JSON.parse(isSizeChecked)   ?  [{size:selectedSize,image:image}] : []

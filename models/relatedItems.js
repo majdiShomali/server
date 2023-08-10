@@ -50,7 +50,7 @@ const relatedItemsSchema = new Schema({
         type : String,
         required : false
     },
-    accessories: {
+     juice: {
         type : String,
         required : false
     },
