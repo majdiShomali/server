@@ -1,24 +1,25 @@
 // 1- calling the model
 const RelatedItems = require("../models/relatedItems");
-
-const addRelatedItem =  async (req, res) => {
-      const image = req.file.path
-      const data =req.body
-      const Newdata={...data,image:image}
-      const  item = new RelatedItems(Newdata);  
-      const newItem = await item.save();
-      res.json(newItem);
-
-
-
-    // const NewColors= JSON.parse(isColorChecked)  ?  [{color:selectedColor,image:image}] :[]
-    // const NewSize = JSON.parse(isSizeChecked)   ?  [{size:selectedSize,image:image}] : []
-    // const NewVapePuff = JSON.parse(isVapePuffChecked)   ?  [{vapePuff:selectedVapePuff,color:selectedColor,image:image}] : []
-    // // const accessories=[{color:selectedColor,size:selectedSize,image:image}]
-    // const  item = new Item({ Name: Name, description: description,price:price,image:image,ProviderId:ProviderId,totalQuantity:totalQuantity,salePrice:salePrice ,category:category,colors:NewColors,size:NewSize,vapePuff:NewVapePuff });     
-    // const newItem = await item.save();
-    // res.json(newItem);
+const errorHandler = (error, req, res) => {
+  console.error("An error occurred:", error);
+  res.status(500).json({ error: "Internal Server Error" });
 };
+
+const addRelatedItem = async (req, res) => {
+  try {
+    const image = req.file.path;
+    const data = req.body;
+    const Newdata = { ...data, image: image };
+    const item = new RelatedItems(Newdata);
+    const newItem = await item.save();
+    res.json(newItem);
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
 const allRelatedItems = (req, res) => {
     const id = req.params.id;
     RelatedItems.find({categoryId:id})

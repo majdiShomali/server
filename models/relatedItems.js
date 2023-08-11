@@ -10,6 +10,10 @@ const relatedItemsSchema = new Schema({
         type : String,
         required : true
     },
+    company: {
+        type : String,
+        required : true
+    },
     categoryId: {
         type: Schema.Types.ObjectId,
         required: true,

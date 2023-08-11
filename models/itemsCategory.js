@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 //1- Create a new schema 
-const itemSchema = new Schema({   
+const itemCategorySchema = new Schema({   
     Name: {
         type : String,
         required : true
@@ -46,7 +46,7 @@ const itemSchema = new Schema({
     )
 
     // 2- export the model with the schema
-    module.exports = mongoose.model('Item',itemSchema);
+    module.exports = mongoose.model('ItemCategory',itemCategorySchema);
 
 
 
