@@ -50,6 +50,10 @@ const relatedItemsSchema = new Schema({
         type : String,
         required : false,
     },
+    nikotin:{
+        type : String,
+        required : false,
+    },
     vapePuff: {
         type : Number,
         required : false
