@@ -18,6 +18,10 @@ const relatedItemsSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
       },
+      ProviderId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+      },
     description: {
         type : String,
         required : true

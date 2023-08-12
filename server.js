@@ -11,6 +11,9 @@ const errorHandler = require('./middleware/500')
 const Protected = require('./middleware/Protected')
 const forgetRouts = require('./routes/forgetRouter');
 const relatedItemsRouts = require('./routes/relatedItemRouter');
+const paymentRoutes  = require('./routes/paymentRoutes');
+const CompanyRouts = require('./routes/companyRouter');
+const JuiceSizeRouts = require('./routes/juiceSizeRouter');
 const app = express();
 app.use(cors());
 
@@ -25,10 +28,13 @@ app.get("/", (req, res) => {
 
 
 app.use(userRouts);
+app.use(paymentRoutes);
 app.use(GoogleLogInRouts);
 app.use(itemCategotyRouts);
 app.use(forgetRouts);
 app.use(relatedItemsRouts);
+app.use(CompanyRouts);
+app.use(JuiceSizeRouts);
 app.use('*',notFoundHandler);
 app.use(errorHandler);
 app.use(Protected)

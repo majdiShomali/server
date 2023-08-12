@@ -15,5 +15,6 @@ router.get("/api/favoriteItems/:id", relatedItemsController.favoriteItems);
 router.put("/api/updateProductRate/:id", upload.single("image"), relatedItemsController.updateProductRate);
 // router.delete("/api/users/:id", relatedItemsController.deleteUser);
 // router.put("/api/users/:id",upload.single("image"), relatedItemsController.updateUser);
+router.put("/api/updateProductQuantity/:id", relatedItemsController.updateProductQuantity);
 
 module.exports = router;

@@ -59,20 +59,7 @@ const addItem =  async (req, res) => {
 
 
 
-const updateProductQuantity = async (req, res) => {
-  const CardId  = req.params.id;
-  const updatedItemData = req.body;
 
-  const ProductOr = await ItemCategory.findOne({_id:CardId});
-
-  const NewUpdateData ={
-    totalQuantity:ProductOr.totalQuantity-updatedItemData.quantity
-  }
-
-  const Product = await ItemCategory.findByIdAndUpdate(CardId, NewUpdateData, { new: true });
-  const updatedProduct= await Product.save();
-  res.json(updatedProduct);
-};
 
 // const updateProductColor = async (req, res) => {
 //   const CardId  = req.params.id;
@@ -91,6 +78,5 @@ module.exports = {
   addItem,
   OneItem,
   ProviderItems,
-  updateProductQuantity,
 }; 
 

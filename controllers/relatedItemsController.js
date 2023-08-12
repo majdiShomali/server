@@ -91,6 +91,22 @@ const OneRelatedItem = (req, res) => {
     const updatedProduct= await Product.save();
     res.json(updatedProduct);
   };
+
+  const updateProductQuantity = async (req, res) => {
+    const CardId  = req.params.id;
+    const updatedItemData = req.body;
+    console.log(updatedItemData)
+  
+    const ProductOr = await RelatedItems.findOne({_id:CardId});
+  console.log(ProductOr)
+    const NewUpdateData ={
+      totalQuantity:ProductOr.totalQuantity-updatedItemData.quantity
+    }
+
+    const Product = await RelatedItems.findByIdAndUpdate(CardId, NewUpdateData, { new: true });
+    const updatedProduct= await Product.save();
+    res.json(updatedProduct);
+  };
 module.exports = {
     addRelatedItem,
     allRelatedItems,
@@ -100,6 +116,8 @@ module.exports = {
     updateItemFav,
     favoriteItems,
     updateProductRate,
+    updateProductQuantity,
+
 }; 
 
 

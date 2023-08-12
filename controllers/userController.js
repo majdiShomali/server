@@ -4,6 +4,10 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 const SECRETKEY = process.env.SECRETKEY;
+const errorHandler = (error, req, res) => {
+  console.error("An error occurred:", error);
+  res.status(500).json({ error: "Internal Server Error" });
+};
 
 const userData =  async (req, res) => {
   const id = req.user.id;
