@@ -1,5 +1,5 @@
 const express = require("express");
-const juiceNikotinController = require("../controllers/juiceNikotinController");
+const juiceNikotinController = require("../../../controllers/productsController/juiceController/juiceNikotinController");
 
 const router = express.Router();
 

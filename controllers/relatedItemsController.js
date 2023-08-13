@@ -103,6 +103,7 @@ const OneRelatedItem = (req, res) => {
       totalQuantity:ProductOr.totalQuantity-updatedItemData.quantity
     }
 
+  
     const Product = await RelatedItems.findByIdAndUpdate(CardId, NewUpdateData, { new: true });
     const updatedProduct= await Product.save();
     res.json(updatedProduct);

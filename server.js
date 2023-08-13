@@ -13,8 +13,11 @@ const forgetRouts = require('./routes/forgetRouter');
 const relatedItemsRouts = require('./routes/relatedItemRouter');
 const paymentRoutes  = require('./routes/paymentRoutes');
 const CompanyRouts = require('./routes/companyRouter');
-const JuiceSizeRouts = require('./routes/juiceSizeRouter');
-const JuiceNikotinRouts = require('./routes/juiceNikotinRouter');
+
+const JuiceSizeRouts = require('./routes/productsRouter/juiceRouter/juiceSizeRouter');
+const JuiceNikotinRouts = require('./routes/productsRouter/juiceRouter/juiceNikotinRouter');
+const JuiceTypeRouts = require('./routes/productsRouter/juiceRouter/juiceTypeRouter');
+
 const app = express();
 app.use(cors());
 
@@ -37,6 +40,7 @@ app.use(relatedItemsRouts);
 app.use(CompanyRouts);
 app.use(JuiceSizeRouts);
 app.use(JuiceNikotinRouts);
+app.use(JuiceTypeRouts);
 app.use('*',notFoundHandler);
 app.use(errorHandler);
 app.use(Protected)

@@ -9,9 +9,40 @@ const paymentSchema = new Schema({
         type : String,
         required : true
     },
+    cardholder: {
+        type : String,
+        required : true
+    },
+    phone: {
+        type : String,
+        required : true
+    },
     amount: {
         type : Number,
         required : true
+    },
+    itemsCartData: {
+        type : Array,
+        required : true
+    },
+    itemsCartDataLocal: {
+        type : Array,
+        required : true
+    },
+    startOrderFlag: {
+        type : Boolean,
+        required : false,
+        default: true,
+    },
+    onWayOrderFlag: {
+        type : Boolean,
+        required : false,
+        default: false,
+    },
+    deliveredOrderFlag: {
+        type : Boolean,
+        required : false,
+        default: false,
     },
 
 },

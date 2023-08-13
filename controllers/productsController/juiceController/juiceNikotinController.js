@@ -1,4 +1,4 @@
-const JuiceNikotin = require("../models/juiceNikotin");
+const JuiceNikotin = require("../../../models/productsModels/juiceModel/juiceNikotin");
 const errorHandler = (error, req, res) => {
     console.error("An error occurred:", error);
     res.status(500).json({ error: "Internal Server Error" });

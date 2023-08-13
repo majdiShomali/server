@@ -1,4 +1,4 @@
-const JuiceSize = require("../models/JuiceSize");
+const JuiceSize = require("../../../models/productsModels/juiceModel/JuiceSize");
 const errorHandler = (error, req, res) => {
     console.error("An error occurred:", error);
     res.status(500).json({ error: "Internal Server Error" });
