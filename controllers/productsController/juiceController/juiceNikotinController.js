@@ -24,9 +24,25 @@ const errorHandler = (error, req, res) => {
       errorHandler(error, req, res);
     }
   };
-  
+  const JuiceNikotinByCategory = (req, res) => {
+    const id =req.params.id
+    JuiceNikotin.find({categoryId:id})
+      .then((data) => { 
+        res.json(data);
+        console.log(data)
+        console.log(data)
+        console.log(data)
+        console.log(data)
+        console.log(data)
+        console.log(data)
+      })
+      .catch((error) => {
+        errorHandler(error, req, res);
+      });
+  };
 
 module.exports = {
     allJuiceNikotin,
     addJuiceNikotin,
+    JuiceNikotinByCategory,
 }; 

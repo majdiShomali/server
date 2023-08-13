@@ -25,8 +25,19 @@ const errorHandler = (error, req, res) => {
     }
   };
   
-
+  const JuiceSizeByCategory = (req, res) => {
+    const id =req.params.id
+    JuiceSize.find({categoryId:id})
+      .then((data) => { 
+        res.json(data);
+        
+      })
+      .catch((error) => {
+        errorHandler(error, req, res);
+      });
+  };
 module.exports = {
     allJuiceSize,
     addJuiceSize,
+    JuiceSizeByCategory
 }; 

@@ -24,8 +24,19 @@ const addJuiceType = async (req, res) => {
     errorHandler(error, req, res);
   }
 };
+const JuiceTypeByCategory = (req, res) => {
+  const id =req.params.id
+  JuiceType.find({categoryId:id})
+    .then((data) => { 
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
 
 module.exports = {
   allJuiceType,
   addJuiceType,
+  JuiceTypeByCategory
 };

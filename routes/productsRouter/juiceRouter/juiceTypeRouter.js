@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get("/api/allJuiceType", juiceTypeController.allJuiceType);
 router.post("/api/addJuiceType", juiceTypeController.addJuiceType);
+router.get("/api/JuiceTypeByCategory/:id", juiceTypeController.JuiceTypeByCategory);
 
 
 module.exports = router;
