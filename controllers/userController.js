@@ -2,12 +2,12 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
-
+const SECRETKEY = process.env.SECRETKEY;
 const NODEMAILER_USER=process.env.NODEMAILER_USER
 const NODEMAILER_PASS=process.env.NODEMAILER_PASS
+
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
@@ -16,7 +16,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const SECRETKEY = process.env.SECRETKEY;
 const errorHandler = (error, req, res) => {
   console.error("An error occurred:", error);
   res.status(500).json({ error: "Internal Server Error" });
@@ -68,8 +67,6 @@ const verifyOldEmail = async (req, res) => {
   
   const { email, Pin } = req.body;
   const user = await User.find({ email: email });
-console.log(email,Pin,user[0].pinCode)
-
 if (Pin == user[0].pinCode) {
   const Newuser = await User.findByIdAndUpdate(
     user[0]._id,
@@ -106,7 +103,7 @@ const newUser = async (req, res) => {
 
     // Send the PIN code to the user's email
     const mailOptions = {
-      from: "arabicrecipes65@gmail.com",
+      from: NODEMAILER_USER,
       to: email,
       subject: "Password Reset PIN Code",
       text: `Your PIN code for password reset is: ${pinCode}`,
@@ -132,17 +129,18 @@ const newUser = async (req, res) => {
       pinCode: pinCode,
     });
     const newUser = await user.save();
-    const token = jwt.sign(
-      { id: user._id, userName: user.userName, role: user.role },
-      SECRETKEY,
-      { expiresIn: "24h" }
-    );
+    // const token = jwt.sign(
+    //   { id: user._id, userName: user.userName, role: user.role },
+    //   SECRETKEY,
+    //   { expiresIn: "24h" }
+    // );
     // res.json({ token ,newUser});
     res.json(newUser);
   } else {
     res.json({ error: "user alredy exist" });
   }
 };
+
 
 const verifyEmail = async (req, res) => {
   try {
@@ -154,7 +152,6 @@ const verifyEmail = async (req, res) => {
         { new: true }
       );
       const updatedUser = await user.save();
-      console.log(updatedUser);
       const token = jwt.sign(
         {
           id: updatedUser._id,
@@ -166,7 +163,7 @@ const verifyEmail = async (req, res) => {
       );
       return res.json({ updatedUser, token });
     } else {
-      return res.status(500).json({ error: "Check PIN code" });
+      return res.status(500).json({ error: "Incorrect Pin Code" });
     }
   } catch (error) {
     res.status(500).json({ error: "Failed to send the PIN code" });
@@ -193,12 +190,62 @@ const newUserLogin = async (req, res) => {
       res.json({ token, user0 });
     }
   }else{
+
+
+
+    // Send the PIN code to the user's email
+    const mailOptions = {
+      from: NODEMAILER_USER,
+      to: email,
+      subject: "Password Reset PIN Code",
+      text: `Your PIN code for password reset is: ${user[0].pinCode}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Failed to send the PIN code" });
+      } else {
+        console.log("Email sent: " + info.response);
+        return res.json({ message: "PIN code sent to email" });
+      }
+    });
+
+
     res.json({ error: "Check your pin code" });
   }
   } else {
    return res.json({ error: "no user found check your email" });
   }
 };
+
+
+const ResendPinCode = async (req, res) => {
+
+  const { email } = req.body;
+  const user = await User.find({ email: email });
+
+const mailOptions = {
+  from: NODEMAILER_USER,
+  to: email,
+  subject: "Password Reset PIN Code",
+  text: `Your PIN code for password reset is: ${user[0].pinCode}`,
+};
+console.log(user[0].pinCode)
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Failed to send the PIN code" });
+  } else {
+    console.log("Email sent: " + info.response);
+    return res.json({ message: "PIN code sent to email" });
+  }
+});
+
+
+res.json({ error: "Check your pin code" });
+};
+
 
 const deleteUser = async (req, res) => {
   const userId = req.params.id;
@@ -226,6 +273,8 @@ const testGet = async (req, res) => {
   res.json({ user: "testGet" });
 };
 
+
+
 module.exports = {
   allUsers,
   newUser,
@@ -239,5 +288,6 @@ module.exports = {
   testGet,
   testPost,
   verifyEmail,
-  verifyOldEmail
+  verifyOldEmail,
+  ResendPinCode,
 };

@@ -13,6 +13,9 @@ router.get("/api/users" , userController.allUsers);
 router.get("/api/Providers", userController.allProviders);
 router.get("/api/Admins", userController.allAdmins);
 router.post("/api/users", userController.newUser);
+
+router.post("/api/ResendPinCode", userController.ResendPinCode);
+
 router.put("/api/verifyEmail", userController.verifyEmail);
 router.put("/api/verifyOldEmail", userController.verifyOldEmail);
 router.post("/api/usersLogin", userController.newUserLogin);

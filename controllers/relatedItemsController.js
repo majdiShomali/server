@@ -92,6 +92,7 @@ const OneRelatedItem = (req, res) => {
     res.json(updatedProduct);
   };
 
+  
   const updateProductQuantity = async (req, res) => {
     const CardId  = req.params.id;
     const updatedItemData = req.body;
