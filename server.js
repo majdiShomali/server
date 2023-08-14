@@ -17,6 +17,7 @@ const CompanyRouts = require('./routes/companyRouter');
 const JuiceSizeRouts = require('./routes/productsRouter/juiceRouter/juiceSizeRouter');
 const JuiceNikotinRouts = require('./routes/productsRouter/juiceRouter/juiceNikotinRouter');
 const JuiceTypeRouts = require('./routes/productsRouter/juiceRouter/juiceTypeRouter');
+const JuiceFlavorRouts = require('./routes/productsRouter/juiceRouter/juiceFlavorRouter');
 
 const app = express();
 app.use(cors());
@@ -41,6 +42,7 @@ app.use(CompanyRouts);
 app.use(JuiceSizeRouts);
 app.use(JuiceNikotinRouts);
 app.use(JuiceTypeRouts);
+app.use(JuiceFlavorRouts);
 app.use('*',notFoundHandler);
 app.use(errorHandler);
 app.use(Protected)

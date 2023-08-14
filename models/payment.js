@@ -29,6 +29,22 @@ const paymentSchema = new Schema({
         type : Array,
         required : true
     },
+    providerId: {
+        type: Schema.Types.ObjectId,
+        required : false
+    },
+    orderTime: {
+        type : String,
+        required : false
+    },
+    startDeliverTime: {
+        type : String,
+        required : false
+    },
+    deliveredTime: {
+        type : String,
+        required : false
+    },
     startOrderFlag: {
         type : Boolean,
         required : false,

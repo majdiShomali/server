@@ -3,6 +3,10 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const protected =require("../middleware/Protected")
 const upload = require("../middleware/handleImage")
+const checkRole = require("../middleware/CheckRole")
+
+router.get("/api/testGet" ,checkRole, userController.testGet);
+router.post("/api/testPost" ,checkRole, userController.testPost);
 
 router.get("/api/userData" ,protected, userController.userData);
 router.get("/api/users" , userController.allUsers);

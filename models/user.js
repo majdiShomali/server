@@ -36,6 +36,11 @@ const userSchema = new Schema({
         required : false,
         default : false
     },
+    flag:{
+        type : Boolean,
+        required : false,
+        default : false
+    },
     resetPin:{
         type : Number,
         required : false,

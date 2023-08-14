@@ -14,6 +14,17 @@ const OrdersAll = (req, res) => {
       errorHandler(error, req, res);
     });
 };
+const GetOrder = (req, res) => {
+  const orderId  = req.params.orderId;
+    Payment.findById(orderId)
+    .then((data) => { 
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
+
 const OrdersOnWay = (req, res) => {
   Payment.find({onWayOrderFlag:true,deliveredOrderFlag:false})
     .then((data) => { 
@@ -45,13 +56,16 @@ const GetUserOrders = (req, res) => {
 
 const PendingToOnWay = async (req, res) => {
     const OrderId  = req.params.id;
-    const order = await Payment.findByIdAndUpdate(OrderId, {onWayOrderFlag:true}, { new: true });
+    const {user,startDeliverTime} =req.body
+    const order = await Payment.findByIdAndUpdate(OrderId, {onWayOrderFlag:true,providerId:user._id,startDeliverTime:startDeliverTime}, { new: true });
     const updatedOrder = await order.save();
     res.json(updatedOrder);
 };
+
 const OnWayToDeliverd = async (req, res) => {
     const OrderId  = req.params.id;
-    const order = await Payment.findByIdAndUpdate(OrderId, {deliveredOrderFlag:true}, { new: true });
+    const {deliveredTime} = req.body;
+    const order = await Payment.findByIdAndUpdate(OrderId, {deliveredOrderFlag:true,deliveredTime:deliveredTime}, { new: true });
     const updatedOrder = await order.save();
     res.json(updatedOrder);
 };
@@ -98,5 +112,6 @@ module.exports = {
   PendingToOnWay,
   OrdersDeliverd,
   OnWayToDeliverd,
-  GetUserOrders
+  GetUserOrders,
+  GetOrder
 };

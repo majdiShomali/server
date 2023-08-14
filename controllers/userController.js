@@ -111,6 +111,17 @@ const updateUser = async (req, res) => {
     res.json(updatedUser);
 };
 
+
+const testPost = async (req, res) => {
+res.json({user:"testPost"});
+
+};
+const testGet = async (req, res) => {
+res.json({user:"testGet"});
+
+};
+
+
 module.exports = {
   allUsers,
   newUser,
@@ -120,6 +131,8 @@ module.exports = {
   allProviders,
   allAdmins,
   userData,
-  updateUser
+  updateUser,
+  testGet,
+  testPost
 }; 
 

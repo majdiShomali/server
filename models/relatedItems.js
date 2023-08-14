@@ -12,11 +12,11 @@ const relatedItemsSchema = new Schema({
     },
     type: {
         type : String,
-        required : true
+        required : false
     },
     company: {
         type : String,
-        required : true
+        required : false
     },
     categoryId: {
         type: Schema.Types.ObjectId,
@@ -26,14 +26,6 @@ const relatedItemsSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
       },
-    description: {
-        type : String,
-        required : true
-    },
-    color: {
-        type : String,
-        required : true
-    },
     image:{
         type : String,
         required : true,
@@ -49,6 +41,14 @@ const relatedItemsSchema = new Schema({
     salePrice:{
         type : Number,
         required : true,
+    },
+    color: {
+        type : String,
+        required : false
+    },
+    description: {
+        type : String,
+        required : false
     },
     size:{
         type : String,
@@ -67,6 +67,10 @@ const relatedItemsSchema = new Schema({
         required : false
     },
      juice: {
+        type : String,
+        required : false
+    },
+     flavor: {
         type : String,
         required : false
     },
