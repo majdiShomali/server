@@ -45,6 +45,10 @@ const userSchema = new Schema({
         type : Number,
         required : false,
     },
+    pinCode:{
+        type : Number,
+        required : false,
+    },
     UsersIdFavorite: {
         type: Array,
         required: false,
