@@ -9,6 +9,9 @@ router.get("/api/ProviderItems/:id", itemCategoryController.ProviderItems);
 
 router.post("/api/items",upload.single("image"), itemCategoryController.addItem);
 
+router.put("/api/updateItemData/:id", itemCategoryController.updateItemData);
+router.put("/api/updateItemImage/:id",upload.single("image"), itemCategoryController.updateItemImage);
+
 
 // router.put("/api/updateProductColor/:id",upload.single("image"), itemCategoryController.updateProductColor);
 // router.put("/api/updateProductSize/:id",upload.single("image"), itemCategoryController.updateProductSize);

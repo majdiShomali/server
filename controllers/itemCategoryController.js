@@ -61,16 +61,21 @@ const addItem =  async (req, res) => {
 
 
 
-// const updateProductColor = async (req, res) => {
-//   const CardId  = req.params.id;
-//   const image = req.file.path
-//   const {selectedColor,itemColors} = req.body;
-//   const prevColors = JSON.parse(itemColors)
-//   const NewColors ={colors:[...prevColors,{color:selectedColor,image:image}]}
-//   const Product = await ItemCategory.findByIdAndUpdate(CardId, NewColors, { new: true });
-//   const updatedProduct= await Product.save();
-//   res.json(updatedProduct);
-// };
+const updateItemData = async (req, res) => {
+  const CardId  = req.params.id;
+  const UpdatedData = req.body.UpdatedData;
+  const Product = await ItemCategory.findByIdAndUpdate(CardId, UpdatedData, { new: true });
+  const updatedProduct= await Product.save();
+  res.json(updatedProduct);
+};
+
+const updateItemImage = async (req, res) => {
+  const CardId  = req.params.id;
+  const image = req.file.path
+  const Product = await ItemCategory.findByIdAndUpdate(CardId, {image:image}, { new: true });
+  const updatedProduct= await Product.save();
+  res.json(updatedProduct);
+};
 
 
 module.exports = {
@@ -78,5 +83,7 @@ module.exports = {
   addItem,
   OneItem,
   ProviderItems,
+  updateItemData,
+  updateItemImage
 }; 
 
