@@ -17,4 +17,9 @@ router.put("/api/updateProductRate/:id", relatedItemsController.updateProductRat
 // router.put("/api/users/:id",upload.single("image"), relatedItemsController.updateUser);
 router.put("/api/updateProductQuantity/:id", relatedItemsController.updateProductQuantity);
 
+
+router.put("/api/updateRelatedItemData/:id", relatedItemsController.updateRelatedItemData);
+router.put("/api/updateRelatedItemImage/:id",upload.single("image"), relatedItemsController.updateRelatedItemImage);
+
+
 module.exports = router;

@@ -107,6 +107,27 @@ const OneRelatedItem = (req, res) => {
     const updatedProduct= await Product.save();
     res.json(updatedProduct);
   };
+
+
+  const updateRelatedItemData = async (req, res) => {
+    const CardId  = req.params.id;
+    const UpdatedData = req.body.UpdatedData;
+    const Product = await RelatedItems.findByIdAndUpdate(CardId, UpdatedData, { new: true });
+    const updatedProduct= await Product.save();
+    res.json(updatedProduct);
+  };
+  
+  
+  const updateRelatedItemImage = async (req, res) => {
+    const CardId  = req.params.id;
+    const image = req.file.path
+    console.log(image,CardId);
+    const Product = await RelatedItems.findByIdAndUpdate(CardId, {image:image}, { new: true });
+    const updatedProduct= await Product.save();
+    res.json(updatedProduct);
+  };
+
+
 module.exports = {
     addRelatedItem,
     allRelatedItems,
@@ -117,6 +138,8 @@ module.exports = {
     favoriteItems,
     updateProductRate,
     updateProductQuantity,
+    updateRelatedItemData,
+    updateRelatedItemImage,
 
 }; 
 
