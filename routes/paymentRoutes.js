@@ -11,6 +11,10 @@ router.get("/api/OrdersOnWay", paymentController.OrdersOnWay);
 router.get("/api/GetUserOrders/:email", paymentController.GetUserOrders);
 router.get("/api/OrdersDeliverd", paymentController.OrdersDeliverd);
 
+router.get("/api/GetUserOrdersPending/:email", paymentController.GetUserOrdersPending);
+router.get("/api/GetUserOrdersStarted/:email", paymentController.GetUserOrdersStarted);
+router.get("/api/GetUserOrdersDone/:email", paymentController.GetUserOrdersDone);
+
 router.put("/api/PendingToOnWay/:id", paymentController.PendingToOnWay);
 router.put("/api/OnWayToDeliverd/:id", paymentController.OnWayToDeliverd);
 

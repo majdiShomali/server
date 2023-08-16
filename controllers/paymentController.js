@@ -53,6 +53,36 @@ const GetUserOrders = (req, res) => {
       errorHandler(error, req, res);
     });
 };
+const GetUserOrdersPending = (req, res) => {
+  const email  = req.params.email;
+  Payment.find({email:email,startOrderFlag:true,onWayOrderFlag:false})
+    .then((data) => { 
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
+const GetUserOrdersStarted = (req, res) => {
+  const email  = req.params.email;
+  Payment.find({email:email,startOrderFlag:true,onWayOrderFlag:true})
+    .then((data) => { 
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
+const GetUserOrdersDone = (req, res) => {
+  const email  = req.params.email;
+  Payment.find({email:email,startOrderFlag:true,onWayOrderFlag:true,deliveredOrderFlag:true})
+    .then((data) => { 
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
 
 const PendingToOnWay = async (req, res) => {
     const OrderId  = req.params.id;
@@ -113,5 +143,8 @@ module.exports = {
   OrdersDeliverd,
   OnWayToDeliverd,
   GetUserOrders,
-  GetOrder
+  GetOrder,
+  GetUserOrdersPending,
+  GetUserOrdersStarted,
+  GetUserOrdersDone,
 };
