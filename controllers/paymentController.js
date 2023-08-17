@@ -53,6 +53,7 @@ const GetUserOrders = (req, res) => {
       errorHandler(error, req, res);
     });
 };
+
 const GetUserOrdersPending = (req, res) => {
   const email  = req.params.email;
   Payment.find({email:email,startOrderFlag:true,onWayOrderFlag:false})
@@ -63,9 +64,10 @@ const GetUserOrdersPending = (req, res) => {
       errorHandler(error, req, res);
     });
 };
+
 const GetUserOrdersStarted = (req, res) => {
   const email  = req.params.email;
-  Payment.find({email:email,startOrderFlag:true,onWayOrderFlag:true})
+  Payment.find({email:email,startOrderFlag:true,onWayOrderFlag:true,deliveredOrderFlag:false})
     .then((data) => { 
       res.json(data);
     })
