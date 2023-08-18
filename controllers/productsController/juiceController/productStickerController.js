@@ -8,16 +8,24 @@ const errorHandler = (error, req, res) => {
 
 const addProductSticker = async (req, res) => {
   try {
-    const data = req.body;
+    let data = req.body;
     const image = req.file.path
-    console.log(req.body)
- 
+
+    data.price=parseInt(data.price)+parseInt(data.Sprice)
+    data.salePrice=parseInt(data.salePrice)+parseInt(data.SsalePrice)
+    data.totalQuantity=data.Squantity
+    data.Name=data.SName
+    data.RelatedItemId=data._id
+    data.ProviderId=data.SProviderId
+    data.image=image
+    
+    const item = new ProductSticker({...data});
+    const newItem = await item.save();
+    res.json(newItem);
   } catch (error) {
     errorHandler(error, req, res);
   }
 };
-
-
 const ProductStikers = async (req, res) => {
   const id =req.params.id
   console.log(id)
