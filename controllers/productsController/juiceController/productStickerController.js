@@ -10,13 +10,14 @@ const addProductSticker = async (req, res) => {
   try {
     const data = req.body;
     const image = req.file.path
-    const item = new ProductSticker({...data,image:image});
-    const newItem = await item.save();
-    res.json(newItem);
+    console.log(req.body)
+ 
   } catch (error) {
     errorHandler(error, req, res);
   }
 };
+
+
 const ProductStikers = async (req, res) => {
   const id =req.params.id
   console.log(id)
