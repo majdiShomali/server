@@ -21,8 +21,8 @@ const addProductSticker = async (req, res) => {
     let data = req.body;
     const image = req.file.path
 
-    data.price=parseInt(data.price)+parseInt(data.Sprice)
-    data.salePrice=parseInt(data.salePrice)+parseInt(data.SsalePrice)
+    data.price=parseInt(data.Sprice)
+    data.salePrice=parseInt(data.SsalePrice)
     data.totalQuantity=data.Squantity
     data.Name=data.SName
     data.RelatedItemId=data._id

@@ -105,7 +105,7 @@ const OnWayToDeliverd = async (req, res) => {
 
 async function createPayment(req, res) {
   try {
-    const { paymentMethodId, email, phone,cardholder, amount,itemsCartData,itemsCartDataLocal,state,address,country } = req.body;
+    const { paymentMethodId, email, phone,cardholder, amount,itemsCartData,itemsCartDataLocal,state,address,country,orderTime } = req.body;
 
 
 
@@ -141,6 +141,7 @@ async function createPayment(req, res) {
       state,
       address,
       country,
+      orderTime,
       status:true,
     });
     await payment.save();
