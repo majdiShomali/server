@@ -9,6 +9,11 @@ const paymentSchema = new Schema({
         type : String,
         required : true
     },
+    status: {
+        type : Boolean,
+        required : true,
+        default :false
+    },
     cardholder: {
         type : String,
         required : true
@@ -25,7 +30,7 @@ const paymentSchema = new Schema({
         type : String,
         required : true
     },
-    adress: {
+    address: {
         type : String,
         required : true
     },

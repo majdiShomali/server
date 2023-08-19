@@ -105,7 +105,7 @@ const OnWayToDeliverd = async (req, res) => {
 
 async function createPayment(req, res) {
   try {
-    const { paymentMethodId, email, phone,cardholder, amount,itemsCartData,itemsCartDataLocal } = req.body;
+    const { paymentMethodId, email, phone,cardholder, amount,itemsCartData,itemsCartDataLocal,state,address,country } = req.body;
 
 
 
@@ -138,6 +138,53 @@ async function createPayment(req, res) {
       itemsCartData,
       itemsCartDataLocal,
       cardholder,
+      state,
+      address,
+      country,
+      status:true,
+    });
+    await payment.save();
+
+    res.json({ success: true });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while processing the payment." });
+  }
+}
+async function createPaymentCash(req, res) {
+  try {
+    const { paymentMethodId, email, phone, amount,itemsCartData,itemsCartDataLocal ,state,address,country } = req.body;
+    const x = itemsCartDataLocal;
+    const y = itemsCartData;   
+    
+
+    const sum = x.reduce((total, xItem, i) => {
+      const yItem = y[i];
+      if ('quantity' in xItem && 'salePrice' in yItem) {
+        return total + xItem.quantity * yItem.salePrice;
+      }
+      return total;
+    }, 0);
+
+
+    
+    const amountInUSD = sum; // Amount in USD
+    const amountInCents = amountInUSD * 100; // Convert USD to cents
+
+    
+    const payment = new Payment({
+      paymentMethodId,
+      email,
+      phone,
+      amount:sum,
+      itemsCartData,
+      itemsCartDataLocal,
+      state,
+      address,
+      country,
+      status:false,
+      cardholder:"0000"
     });
     await payment.save();
 
@@ -161,4 +208,5 @@ module.exports = {
   GetUserOrdersPending,
   GetUserOrdersStarted,
   GetUserOrdersDone,
+  createPaymentCash
 };

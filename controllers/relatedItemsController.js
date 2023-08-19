@@ -1,5 +1,7 @@
 // 1- calling the model
 const RelatedItems = require("../models/relatedItems");
+const ProductSticker = require("../models/productsModels/juiceModel/productSticker");
+
 const errorHandler = (error, req, res) => {
   console.error("An error occurred:", error);
   res.status(500).json({ error: "Internal Server Error" });
@@ -94,18 +96,41 @@ const OneRelatedItem = (req, res) => {
 
   
   const updateProductQuantity = async (req, res) => {
-    const CardId  = req.params.id;
+    const CardId = req.params.id;
     const updatedItemData = req.body;
   
-    const ProductOr = await RelatedItems.findOne({_id:CardId});
-    const NewUpdateData ={
-      totalQuantity:ProductOr.totalQuantity-updatedItemData.quantity
-    }
-
+    try {
+      let ProductOr = await RelatedItems.findOne({ _id: CardId });
   
-    const Product = await RelatedItems.findByIdAndUpdate(CardId, NewUpdateData, { new: true });
-    const updatedProduct= await Product.save();
-    res.json(updatedProduct);
+      if (!ProductOr) {
+        ProductOr = await ProductSticker.findOne({ _id: CardId });
+
+        const NewUpdateData = {
+          totalQuantity: ProductOr.totalQuantity - updatedItemData.quantity
+        };
+    
+        let Product = await ProductSticker.findByIdAndUpdate(CardId, NewUpdateData, { new: true });
+        const updatedProduct = await Product.save();
+        
+        res.json(updatedProduct);
+
+      }else{
+
+        const NewUpdateData = {
+          totalQuantity: ProductOr.totalQuantity - updatedItemData.quantity
+        };
+    
+        let Product = await RelatedItems.findByIdAndUpdate(CardId, NewUpdateData, { new: true });
+        const updatedProduct = await Product.save();
+        
+        res.json(updatedProduct);
+    
+      }
+
+    } catch (error) {
+      console.error('Error updating product quantity:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
   };
 
 

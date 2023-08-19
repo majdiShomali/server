@@ -5,6 +5,16 @@ const errorHandler = (error, req, res) => {
   res.status(500).json({ error: "Internal Server Error" });
 };
 
+const ProductStikersCart = (req, res) => {
+  const { Ids } = req.body;
+  ProductSticker.find({ _id: { $in: Ids } })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
 
 const addProductSticker = async (req, res) => {
   try {
@@ -41,5 +51,6 @@ const ProductStikers = async (req, res) => {
 module.exports = {
   addProductSticker,
   ProductStikers,
+  ProductStikersCart
 
 };
