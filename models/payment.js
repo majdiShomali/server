@@ -17,6 +17,18 @@ const paymentSchema = new Schema({
         type : String,
         required : true
     },
+    country: {
+        type : String,
+        required : true
+    },
+    state: {
+        type : String,
+        required : true
+    },
+    adress: {
+        type : String,
+        required : true
+    },
     amount: {
         type : Number,
         required : true

@@ -18,7 +18,7 @@ const addProductSticker = async (req, res) => {
     data.RelatedItemId=data._id
     data.ProviderId=data.SProviderId
     data.image=image
-    
+    delete data["_id"];
     const item = new ProductSticker({...data});
     const newItem = await item.save();
     res.json(newItem);

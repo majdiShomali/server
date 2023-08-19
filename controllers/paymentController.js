@@ -108,7 +108,19 @@ async function createPayment(req, res) {
     const { paymentMethodId, email, phone,cardholder, amount,itemsCartData,itemsCartDataLocal } = req.body;
 
 
-    const amountInUSD = amount; // Amount in USD
+
+    const x = itemsCartDataLocal;
+    const y = itemsCartData;
+    
+    const sum = x.reduce((total, xItem, i) => {
+      const yItem = y[i];
+      if ('quantity' in xItem && 'salePrice' in yItem) {
+        return total + xItem.quantity * yItem.salePrice;
+      }
+      return total;
+    }, 0);
+    
+    const amountInUSD = sum; // Amount in USD
     const amountInCents = amountInUSD * 100; // Convert USD to cents
 
     const paymentIntent = await stripe.paymentIntents.create({
@@ -122,7 +134,7 @@ async function createPayment(req, res) {
       paymentMethodId,
       email,
       phone,
-      amount,
+      amount:sum,
       itemsCartData,
       itemsCartDataLocal,
       cardholder,
