@@ -4,6 +4,7 @@ const relatedItemsController = require("../controllers/relatedItemsController");
 // const protected =require("../middleware/Protected")
 const upload = require("../middleware/handleImage")
 
+router.post("/api/price", relatedItemsController.price);
 
 router.post("/api/allCartItems", relatedItemsController.allCartItems);
 router.get("/api/RelatedItemsAll", relatedItemsController.RelatedItemsAll);

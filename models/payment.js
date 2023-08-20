@@ -3,11 +3,15 @@ const Schema = mongoose.Schema;
 const paymentSchema = new Schema({ 
     paymentMethodId: {
         type : String,
+        required : false
+    },
+    captureDetails: {
+        type : Object,
         required : true
     },
     email: {
         type : String,
-        required : true
+        required : false
     },
     status: {
         type : Boolean,
@@ -16,27 +20,31 @@ const paymentSchema = new Schema({
     },
     cardholder: {
         type : String,
-        required : true
+        required : false
     },
     phone: {
         type : String,
-        required : true
+        required : false
     },
     country: {
         type : String,
-        required : true
+        required : false
     },
     state: {
         type : String,
-        required : true
+        required : false
     },
     address: {
-        type : String,
-        required : true
+        type : Object,
+        required : false
+    },
+    name: {
+        type : Object,
+        required : false
     },
     amount: {
         type : Number,
-        required : true
+        required : false
     },
     itemsCartData: {
         type : Array,

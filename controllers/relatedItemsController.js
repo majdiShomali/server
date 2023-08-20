@@ -7,6 +7,73 @@ const errorHandler = (error, req, res) => {
   res.status(500).json({ error: "Internal Server Error" });
 };
 
+const price = async (req, res) => {
+  let AllProducts =[]
+  const { items } = req.body;
+  const ids = items.map(item => item._id);
+
+  try {
+    const relatedItems = await RelatedItems.find({ _id: { $in: ids } });
+    if (relatedItems.length >0 ){
+      AllProducts =relatedItems
+    }
+
+
+    try {
+      const StickerItems = await ProductSticker.find({ _id: { $in: ids } });
+      if (StickerItems.length >0 ){
+        if(AllProducts.length > 0){
+          AllProducts =[...AllProducts,...StickerItems]
+        }else{
+          AllProducts=StickerItems
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+
+
+
+
+if(AllProducts.length > 0 && items.length > 0) {
+
+
+
+ 
+  
+  // Create a map from array y using _id as the key
+  let yMap = new Map(items.map(item => [item._id.toString(), item]));
+  
+  // Update array x with truequantity from array y
+  AllProducts.forEach(item => {
+    if (yMap.has(item._id.toString())) {
+      item.quantity = yMap.get(item._id.toString()).quantity;
+    }
+  });
+  let sum = AllProducts.reduce((total, item) => total + (item.salePrice * item.quantity), 0);
+
+  console.log("AllProducts");
+  console.log(AllProducts);
+  console.log("AllProducts");
+
+
+    res.status(200).json({truePrice:sum,trueProducts:AllProducts} );
+  }else{
+    res.status(500).json({ error: "No Items In cart" });
+  }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+
+};
+
+
+
+
+
+
 const addRelatedItem = async (req, res) => {
   try {
     const image = req.file.path;
@@ -165,6 +232,7 @@ module.exports = {
     updateProductQuantity,
     updateRelatedItemData,
     updateRelatedItemImage,
+    price
 
 }; 
 
