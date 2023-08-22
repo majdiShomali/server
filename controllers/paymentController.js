@@ -107,11 +107,12 @@ const OnWayToDeliverd = async (req, res) => {
 
 async function createPayment(req, res) {
   try {
-    const {captureDetails,amount,itemsCartData} = req.body;
+    const {captureDetails,amount,itemsCartData,deliveryAddress} = req.body;
     console.log(captureDetails,amount,itemsCartData);
         const payment = new Payment({
         captureDetails:captureDetails,
       amount:amount,
+      deliveryAddress:deliveryAddress,
       itemsCartData:itemsCartData,
       itemsCartDataLocal:itemsCartData,
       orderTime:new Date(),

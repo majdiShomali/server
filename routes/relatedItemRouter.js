@@ -10,6 +10,7 @@ router.post("/api/allCartItems", relatedItemsController.allCartItems);
 router.get("/api/RelatedItemsAll", relatedItemsController.RelatedItemsAll);
 router.post("/api/addRelatedItem",upload.single("image"), relatedItemsController.addRelatedItem);
 router.get("/api/allRelatedItems/:id", relatedItemsController.allRelatedItems);
+router.get("/api/CustomizedItems/:id/:customizedToId", relatedItemsController.CustomizedItems);
 router.get("/api/OneRelatedItem/:id", relatedItemsController.OneRelatedItem);
 router.put("/api/updateItemFav/:id" , relatedItemsController.updateItemFav);
 router.get("/api/favoriteItems/:id", relatedItemsController.favoriteItems);

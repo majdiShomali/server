@@ -92,7 +92,7 @@ if (Pin == user[0].pinCode) {
 };
 
 const newUser = async (req, res) => {
-  const { userName, email, password, role, phone } = req.body;
+  const { userName, email, password, role, phone ,DateOfBirth} = req.body;
   const user = await User.find({ email: email });
   if (user.length === 0) {
     // Generate a random PIN code
@@ -125,6 +125,7 @@ const newUser = async (req, res) => {
       email: email,
       password: hashPassword,
       role: role,
+      DateOfBirth: DateOfBirth,
       phone: phone,
       pinCode: pinCode,
     });

@@ -99,6 +99,8 @@ const allRelatedItems = (req, res) => {
       errorHandler(error, req, res);
     });
 };
+
+
 const RelatedItemsAll = (req, res) => {
     RelatedItems.find()
     .then((data) => { 
@@ -219,6 +221,40 @@ const OneRelatedItem = (req, res) => {
     res.json(updatedProduct);
   };
 
+  const CustomizedItems = (req, res) => {
+    const id = req.params.id;
+    const customizedToId = req.params.customizedToId;
+
+    const conditions = [];
+    if (id !== "0") {
+        conditions.push({ customizedToId: id });
+    }
+    if (customizedToId !== "0") {
+        conditions.push({ _id: customizedToId });
+    }
+
+    if (conditions.length === 0) {
+        // Both IDs are "0", so no need to perform the query
+        res.json([]);
+        return;
+    }
+
+    RelatedItems.find({
+        $or: conditions
+    })
+    .then((data) => { 
+        res.json(data);
+    })
+    .catch((error) => {
+        errorHandler(error, req, res);
+    });
+};
+
+
+
+
+
+
 
 module.exports = {
     addRelatedItem,
@@ -232,7 +268,8 @@ module.exports = {
     updateProductQuantity,
     updateRelatedItemData,
     updateRelatedItemImage,
-    price
+    price,
+    CustomizedItems
 
 }; 
 

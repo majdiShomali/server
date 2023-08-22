@@ -5,6 +5,10 @@ const paymentSchema = new Schema({
         type : String,
         required : false
     },
+    deliveryAddress: {
+        type : String,
+        required : true
+    },
     captureDetails: {
         type : Object,
         required : true

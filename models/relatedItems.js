@@ -26,6 +26,10 @@ const relatedItemsSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
       },
+      customizedToId: {
+        type: Schema.Types.ObjectId,
+        required: false,
+      },
     image:{
         type : String,
         required : true,
