@@ -29,20 +29,30 @@ const errorHandler = (error, req, res) => {
     JuiceFlavor.find({categoryId:id})
       .then((data) => { 
         res.json(data);
-        console.log(data)
-        console.log(data)
-        console.log(data)
-        console.log(data)
-        console.log(data)
-        console.log(data)
+
       })
       .catch((error) => {
         errorHandler(error, req, res);
       });
   };
 
+
+  const updateJuiceFlavor = async (req, res) => {
+    try {
+     const Id = req.params.id;
+     const  Data  = req.body;
+     console.log(Id,Data);
+     const updated = await JuiceFlavor.findByIdAndUpdate(Id, Data, { new: true });
+     console.log(updated);
+     res.json(updated);
+    } catch (error) {
+     errorHandler(error, req, res);
+    }
+  }
+
 module.exports = {
     allJuiceFlavor,
     addJuiceFlavor,
     JuiceFlavorByCategory,
+    updateJuiceFlavor,
 }; 

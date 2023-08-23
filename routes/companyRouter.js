@@ -9,6 +9,6 @@ router.post("/api/addCompany", upload.single("image"), companyController.addComp
 router.get("/api/allCompanies", companyController.allCompanies);
 router.get("/api/CompaniesByCategory/:id", companyController.CompaniesByCategory);
 // router.get("/api/allRelatedItems/:id", companyController.allRelatedItems);
-// router.put("/api/updateProductRate/:id", companyController.updateProductRate);
+router.put("/api/updateCompany/:id", companyController.updateCompany);
 
 module.exports = router;

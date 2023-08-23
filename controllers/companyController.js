@@ -36,10 +36,23 @@ const errorHandler = (error, req, res) => {
       errorHandler(error, req, res);
     }
   };
+  const updateCompany = async (req, res) => {
+ try {
+  const CompanyId = req.params.id;
+  const  CompanyData  = req.body;
+  console.log(CompanyId,CompanyData);
+  const updatedCompany = await Company.findByIdAndUpdate(CompanyId, CompanyData, { new: true });
+  console.log(updatedCompany);
+  res.json(updatedCompany);
+ } catch (error) {
+  errorHandler(error, req, res);
+ }
+  };
   
 
 module.exports = {
     allCompanies,
     addCompany,
     CompaniesByCategory,
+    updateCompany,
 }; 
