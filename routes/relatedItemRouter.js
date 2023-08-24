@@ -23,5 +23,7 @@ router.put("/api/updateProductQuantity/:id", relatedItemsController.updateProduc
 router.put("/api/updateRelatedItemData/:id", relatedItemsController.updateRelatedItemData);
 router.put("/api/updateRelatedItemImage/:id",upload.single("image"), relatedItemsController.updateRelatedItemImage);
 
+router.put("/api/LinkProduct/:item1Id/:item2Id", relatedItemsController.LinkProduct);
+router.get("/api/getLinkProduct/:id", relatedItemsController.getLinkProduct);
 
 module.exports = router;

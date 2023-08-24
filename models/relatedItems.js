@@ -6,6 +6,10 @@ const relatedItemsSchema = new Schema({
         type : String,
         required : true
     },
+    linkedProducts: {
+        type : Array,
+        required : false
+    },
     category: {
         type : String,
         required : true

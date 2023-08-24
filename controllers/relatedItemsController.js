@@ -220,7 +220,7 @@ const OneRelatedItem = (req, res) => {
     const updatedProduct= await Product.save();
     res.json(updatedProduct);
   };
-
+  
   const CustomizedItems = (req, res) => {
     const id = req.params.id;
     const customizedToId = req.params.customizedToId;
@@ -251,6 +251,32 @@ const OneRelatedItem = (req, res) => {
 };
 
 
+const LinkProduct = async (req, res) => {
+  try {
+  const item1Id  = req.params.item1Id;
+  const item2Id  = req.params.item2Id;
+  const {linkedProductsItem1,linkedProductsItem2} = req.body
+  const Product1 = await RelatedItems.findByIdAndUpdate(item1Id, {linkedProducts:linkedProductsItem1}, { new: true });
+  const updatedProduct1= await Product1.save();
+  const Product2 = await RelatedItems.findByIdAndUpdate(item2Id, {linkedProducts:linkedProductsItem2}, { new: true });
+  const updatedProduct2= await Product2.save();
+  res.json({updatedProduct1,updatedProduct2});
+  } catch (error) {
+    errorHandler(error, req, res);
+  }
+};
+
+const getLinkProduct = async (req, res) => {
+  try {
+  const ProductId  = req.params.id;
+  console.log(ProductId);
+  const LinkedItems = await RelatedItems.find({ linkedProducts: { $in: ProductId } });
+console.log(LinkedItems)
+  res.json(LinkedItems);
+  } catch (error) {
+    errorHandler(error, req, res);
+  }
+};
 
 
 
@@ -269,7 +295,9 @@ module.exports = {
     updateRelatedItemData,
     updateRelatedItemImage,
     price,
-    CustomizedItems
+    CustomizedItems,
+    LinkProduct,
+    getLinkProduct,
 
 }; 
 
