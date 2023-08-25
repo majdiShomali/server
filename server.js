@@ -19,6 +19,7 @@ const JuiceNikotinRouts = require('./routes/productsRouter/juiceRouter/juiceNiko
 const JuiceTypeRouts = require('./routes/productsRouter/juiceRouter/juiceTypeRouter');
 const JuiceFlavorRouts = require('./routes/productsRouter/juiceRouter/juiceFlavorRouter');
 const ProductStickerRoutes = require('./routes/productsRouter/juiceRouter/productStickerRouter');
+const uploadImageRoutes = require('./routes/uploadImageRouter')
 const app = express();
 app.use(cors());
 
@@ -44,6 +45,7 @@ app.use(JuiceNikotinRouts);
 app.use(JuiceTypeRouts);
 app.use(JuiceFlavorRouts);
 app.use(ProductStickerRoutes);
+app.use(uploadImageRoutes);
 app.use('*',notFoundHandler);
 app.use(errorHandler);
 app.use(Protected)

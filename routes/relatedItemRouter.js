@@ -3,12 +3,13 @@ const router = express.Router();
 const relatedItemsController = require("../controllers/relatedItemsController");
 // const protected =require("../middleware/Protected")
 const upload = require("../middleware/handleImage")
+const uploadMiddleware = require('../middleware/uploadMiddleware'); // Correct import
 
 router.post("/api/price", relatedItemsController.price);
 
 router.post("/api/allCartItems", relatedItemsController.allCartItems);
 router.get("/api/RelatedItemsAll", relatedItemsController.RelatedItemsAll);
-router.post("/api/addRelatedItem",upload.single("image"), relatedItemsController.addRelatedItem);
+router.post("/api/addRelatedItem",uploadMiddleware, relatedItemsController.addRelatedItem);
 router.get("/api/allRelatedItems/:id", relatedItemsController.allRelatedItems);
 router.get("/api/CustomizedItems/:id/:customizedToId", relatedItemsController.CustomizedItems);
 router.get("/api/OneRelatedItem/:id", relatedItemsController.OneRelatedItem);
@@ -21,7 +22,7 @@ router.put("/api/updateProductQuantity/:id", relatedItemsController.updateProduc
 
 
 router.put("/api/updateRelatedItemData/:id", relatedItemsController.updateRelatedItemData);
-router.put("/api/updateRelatedItemImage/:id",upload.single("image"), relatedItemsController.updateRelatedItemImage);
+router.put("/api/updateRelatedItemImage/:id",uploadMiddleware, relatedItemsController.updateRelatedItemImage);
 
 router.put("/api/LinkProduct/:item1Id/:item2Id", relatedItemsController.LinkProduct);
 router.get("/api/getLinkProduct/:id", relatedItemsController.getLinkProduct);
