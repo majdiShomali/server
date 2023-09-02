@@ -53,11 +53,6 @@ if(AllProducts.length > 0 && items.length > 0) {
   });
   let sum = AllProducts.reduce((total, item) => total + (item.salePrice * item.quantity), 0);
 
-  console.log("AllProducts");
-  console.log(AllProducts);
-  console.log("AllProducts");
-
-
     res.status(200).json({truePrice:sum,trueProducts:AllProducts} );
   }else{
     res.status(500).json({ error: "No Items In cart" });
@@ -125,15 +120,17 @@ const allRelatedItemsBy = (req, res) => {
         }
       }
     });
-  } else {
-    aggregationPipeline.push({
-      $match: {
-        $expr: {
-          $eq: ["$salePrice", "$price"]
-        }
-      }
-    });
-  }
+  } 
+  
+  // else {
+  //   aggregationPipeline.push({
+  //     $match: {
+  //       $expr: {
+  //         $eq: ["$salePrice", "$price"]
+  //       }
+  //     }
+  //   });
+  // }
 
   if (searchWord) {
     aggregationPipeline.push({
