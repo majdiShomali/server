@@ -97,9 +97,7 @@ const allRelatedItems = (req, res) => {
 
 
 const allRelatedItemsBy = (req, res) => {
-  const { category, company, type, sale, CurrentPage,searchWord } = req.body;
-  const itemsPerPage = 3;
-
+  const { category, company, type, sale, CurrentPage,searchWord,itemsPerPage } = req.body;
   const matchQuery = {};
 
   if (category) { matchQuery.category = category; }
@@ -200,6 +198,7 @@ const RelatedItemsAll = (req, res) => {
       errorHandler(error, req, res);
     });
 };
+
 
 const OneRelatedItem = (req, res) => {
     const id = req.params.id;
