@@ -184,13 +184,10 @@ const allRelatedItemsBy = (req, res) => {
 
 
 
-
-
-
-
-
 const RelatedItemsAll = (req, res) => {
-    RelatedItems.find()
+  RelatedItems.find()
+    .sort({ rating: -1 }) // Sort by rating in descending order (highest to lowest)
+    .limit(4) // Limit the results to the top 4 items
     .then((data) => { 
       res.json(data);
     })
